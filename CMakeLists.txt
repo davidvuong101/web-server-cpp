@@ -12,6 +12,9 @@ add_compile_options(-Wall -Wextra)
 # for JSON parsing
 find_package(nlohmann_json 3.2.0 REQUIRED)
 
+# for the std::thread worker pool
+find_package(Threads REQUIRED)
+
 add_executable(server
     src/main.cpp
     src/http_parser.cpp
@@ -19,4 +22,4 @@ add_executable(server
     src/router.cpp
 )
 target_include_directories(server PRIVATE include)
-target_link_libraries(server PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(server PRIVATE nlohmann_json::nlohmann_json Threads::Threads)
