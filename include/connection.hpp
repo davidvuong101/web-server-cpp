@@ -22,6 +22,9 @@ struct Connection
 
     bool keep_alive{false};
 
+    // track registered event mask (EPOLLIN/EPOLLOUT) for this fd
+    uint32_t epoll_events{0};
+
     void reset() noexcept
     {
         fd = -1;
@@ -29,7 +32,5 @@ struct Connection
         write_len = 0;
         write_offset = 0;
         keep_alive = false;
-        std::memset(read_buf, 0, sizeof(read_buf));
-        std::memset(write_buf, 0, sizeof(write_buf));
     }
 };
